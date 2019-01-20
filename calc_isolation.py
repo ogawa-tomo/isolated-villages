@@ -4,6 +4,7 @@ import folium
 from point_dao import PointDAO
 from point import *
 from calc_relation_point import CalcRelationPoint
+import os
 
 
 def main(s):
@@ -35,6 +36,7 @@ def main(s):
 
     # 結果書き出し
     output_file = "./output/" + s.region
+    os.makedirs(output_file, exist_ok=True)
     output_result = OutputResult(output_file, sorted_villages, s)
     output_result.output_csv()
     output_result.output_map()
