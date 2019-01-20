@@ -1,0 +1,2 @@
+POP_PARAM = 1
+DIST_PARAM = 2

@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h1>秘境集落探索プログラム</h1>
+
+<form action="/result" method="post">
+    <table class="table table-responsive">
+        <tr>
+            <th>設定項目</th>
+            <th>設定値</th>
+        </tr>
+        <tr>
+            <td>地域</td>
+            <td>
+                {% if setting %}
+                    {{ setting.region_kanji }}
+                {% else %}
+                    <select name="region" id="region">
+                        <option value="" selected disabled hidden>地域を選択</option>
+                        <option value="hokkaido">北海道</option>
+                        <option value="tohoku">東北</option>
+                        <option value="kanto">関東</option>
+                        <option value="chubu">中部</option>
+                        <option value="kinki">近畿</option>
+                        <option value="chugoku">中国</option>
+                        <option value="shikoku">四国</option>
+                        <option value="kyushu">九州</option>
+                    </select>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>メッシュ人口下限</td>
+            <td>
+                {% if setting %}
+                    {{ setting.point_pop_lower_limit }}
+                {% else %}
+                    <input type="text" name="point_pop_lower_limit" id="point_pop_lower_limit" size="3" value="100">
+                {% endif %}
+            </td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>メッシュを人口集積地とみなす人口の上限</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.point_pop_upper_limit }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="point_pop_upper_limit" id="point_pop_upper_limit" size="3" value="10000">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>集落人口下限</td>
+            <td>
+                {% if setting %}
+                    {{ setting.village_pop_lower_limit }}
+                {% else %}
+                    <input type="text" name="village_pop_lower_limit" id="village_pop_lower_limit" size="3" value="300">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>集落人口上限</td>
+            <td>
+                {% if setting %}
+                    {{ setting.village_pop_upper_limit }}
+                {% else %}
+                    <input type="text" name="village_pop_upper_limit" id="village_pop_upper_limit" size="3" value="10000">
+                {% endif %}
+            </td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>集落とみなすメッシュ数の下限</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.village_size_lower_limit }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="village_size_lower_limit" id="village_size_lower_limit" size="3" value="1">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>集落メッシュ数上限</td>
+            <td>
+                {% if setting %}
+                    {{ setting.village_size_upper_limit }}
+                {% else %}
+                    <input type="text" name="village_size_upper_limit" id="village_size_upper_limit" size="3" value="6">
+                {% endif %}
+            </td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>集落とみなす最大人口密度の下限</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.max_density_lower_limit }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="max_density_lower_limit" id="max_density_lower_limit" size="3" value="100">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>連帯度計算に用いる距離の閾値(km)</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.distance_threshold }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="distance_threshold" id="distance_threshold" size="3" value="1000">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>海岸距離下限(km)</td>
+            <td>
+                {% if setting %}
+                    {{ setting.coast_distance_threshold }}
+                {% else %}
+                    <input type="text" name="coast_distance_threshold" id="coast_distance_threshold" size="3" value="0">
+                {% endif %}
+            </td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>人口パラメタ</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.pop_param }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="population_param" id="population_param" size="3" value="1">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>距離パラメタ</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.dist_param }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="distance_param" id="distance_param" size="3" value="2">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>地図で表示する数</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.point_output_num }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="point_output_num" id="point_output_num" size="3" value="10">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
+    </table>
+    {% if setting %}
+    {% else %}
+        <button type="submit" class="btn btn-default">探索</button>
+    {% endif %}
+</form>
+<br>
+
+{% if result %}
+    <h2>探索結果</h2>
+    <table class="table table-responsive">
+        <tr>
+            <th>順位</th>
+            <th>都道府県</th>
+            <th>市町村</th>
+            <th>地区</th>
+            <th>Google Map</th>
+            <th>人口</th>
+            <th>連帯度</th>
+            <th>海岸距離</th>
+            <th>メッシュ数</th>
+        </tr>
+        {% for v in result.sorted_villages %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ v.pref }}</td>
+                <td>{{ v.city }}</td>
+                <td>{{ v.district }}</td>
+                <td>
+                    <a href="{{ v.google_map_url }}" target="_blank">{{ v.latitude_round }},{{ v.longitude_round }}</a>
+                </td>
+                <td>{{ v.population }}</td>
+                <td>{{ v.relation_point_round }}</td>
+                <td>{{ v.coast_distance_round }}</td>
+                <td>{{ v.size  }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<script>
+    var lat_lon = hogehoge
+</script>
+
+{% endblock %}
