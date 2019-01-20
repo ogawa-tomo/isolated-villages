@@ -263,7 +263,10 @@ class PointDAO(object):
                 p.population = int(line[pop_idx])
                 p.latitude = float(line[lat_idx])
                 p.longitude = float(line[lon_idx])
-                p.coast = bool(line[coast_idx])
+                if line[coast_idx] == "True":
+                    p.coast = True
+                else:
+                    p.coast = False
                 p.coast_distance = float(line[coast_distance_idx])
                 p.relation_point_default = float(line[relation_point_idx])
 
