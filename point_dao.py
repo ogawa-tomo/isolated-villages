@@ -176,7 +176,7 @@ class PointDAO(object):
 
         descriptions = cur.description
 
-        with open(self.pop_data_csv, "w") as f:
+        with open(self.pop_data_csv, "w", encoding="utf8") as f:
             writer = csv.writer(f, lineterminator="\n")
 
             # ヘッダ
@@ -219,7 +219,7 @@ class PointDAO(object):
         coast_distance_idx = -1
         relation_point_idx = -1
 
-        with open(self.pop_data_csv, "r") as f:
+        with open(self.pop_data_csv, "r", encoding="utf8") as f:
             reader = csv.reader(f)
             for i, line in enumerate(reader):
 
