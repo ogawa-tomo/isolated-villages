@@ -119,7 +119,8 @@ class MeshPointManager(object):
 
         dao = PointDAO()
         print("DBから人口点を読み込み中")
-        read_points = dao.read_pop_points(point_pop_lower_limit, region)
+        # read_points = dao.read_pop_points_from_db(point_pop_lower_limit, region)
+        read_points = dao.read_pop_points_from_csv(point_pop_lower_limit, region)
 
         self.all_pop_points = read_points["all"]
         self.calc_segment_pop_points = read_points["calc_segment"]
