@@ -3,3 +3,4 @@ folium==0.7.0
 gunicorn==19.9.0
 Jinja2==2.10
 psycopg2==2.7.6.1
+tqdm
