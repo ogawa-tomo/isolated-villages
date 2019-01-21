@@ -53,11 +53,23 @@ class Setting(object):
 
 class RegionSetting(object):
 
+    # region_prefs = {
+    #     "hokkaido": ["北海道"],
+    #     "tohoku": ["青森県", "秋田県", "岩手県", "山形県", "宮城県", "福島県"],
+    #     "kanto": ["東京都", "埼玉県", "神奈川県", "千葉県", "群馬県", "栃木県", "茨城県"],
+    #     "chubu": ["山梨県", "長野県", "新潟県", "富山県", "福井県", "岐阜県", "静岡県", "愛知県", "石川県"],
+    #     "kinki": ["滋賀県", "京都府", "大阪府", "兵庫県", "三重県", "奈良県", "和歌山県"],
+    #     "chugoku": ["岡山県", "鳥取県", "広島県", "島根県", "山口県"],
+    #     "shikoku": ["香川県", "愛媛県", "徳島県", "高知県"],
+    #     "kyushu": ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県"]
+    # }
+
     region_prefs = {
         "hokkaido": ["北海道"],
         "tohoku": ["青森県", "秋田県", "岩手県", "山形県", "宮城県", "福島県"],
         "kanto": ["東京都", "埼玉県", "神奈川県", "千葉県", "群馬県", "栃木県", "茨城県"],
-        "chubu": ["山梨県", "長野県", "新潟県", "富山県", "福井県", "岐阜県", "静岡県", "愛知県", "石川県"],
+        "hokuriku": ["新潟県", "富山県", "福井県", "石川県"],
+        "chubu": ["山梨県", "長野県", "静岡県", "岐阜県", "愛知県"],
         "kinki": ["滋賀県", "京都府", "大阪府", "兵庫県", "三重県", "奈良県", "和歌山県"],
         "chugoku": ["岡山県", "鳥取県", "広島県", "島根県", "山口県"],
         "shikoku": ["香川県", "愛媛県", "徳島県", "高知県"],
@@ -68,6 +80,7 @@ class RegionSetting(object):
         "hokkaido": "hokkaido",
         "tohoku": "honshu",
         "chubu": "honshu",
+        "hokuriku": "honshu",
         "kanto": "honshu",
         "kinki": "honshu",
         "chugoku": "honshu",
@@ -77,18 +90,18 @@ class RegionSetting(object):
 
     calc_segment_regions = {
         "hokkaido": ["hokkaido"],
-        "honshu": ["tohoku", "kanto", "chubu", "kinki", "chugoku"],
+        # "honshu": ["tohoku", "kanto", "chubu", "kinki", "chugoku"],
+        "honshu": ["tohoku", "kanto", "hokuriku", "chubu", "kinki", "chugoku"],
         "shikoku": ["shikoku"],
         "kyushu": ["kyushu"]
     }
-
-
 
     region_kanji = {
         "hokkaido": "北海道",
         "tohoku": "東北",
         "chubu": "中部",
         "kanto": "関東",
+        "hokuriku": "北陸",
         "kinki": "近畿",
         "chugoku": "中国",
         "shikoku": "四国",
@@ -183,9 +196,9 @@ class RegionSetting(object):
                 segment_list.append((i, j))
         return segment_list
 
-
-
-
+    @classmethod
+    def get_region_list(cls):
+        return cls.region_prefs.keys()
 
 
 if __name__ == "__main__":
