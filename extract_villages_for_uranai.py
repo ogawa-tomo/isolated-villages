@@ -24,7 +24,7 @@ for region in RegionSetting.get_region_list():
         s.region = region
         result = calc_isolation.main(s)
         villages = result.sorted_villages
-        extracted_villages.extend(villages[:30])
+        extracted_villages.extend(villages[:20])
 
 with open("./output/uranai.txt", "w") as f:
     for v in extracted_villages:
