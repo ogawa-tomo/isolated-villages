@@ -25,7 +25,7 @@ def post():
         point_pop_lower_limit = int(request.form["point_pop_lower_limit"])
         # point_pop_upper_limit = int(request.form["point_pop_upper_limit"])
         village_pop_lower_limit = int(request.form["village_pop_lower_limit"])
-        village_pop_upper_limit = int(request.form["village_pop_upper_limit"])
+        # village_pop_upper_limit = int(request.form["village_pop_upper_limit"])
         # village_size_lower_limit = int(request.form["village_size_lower_limit"])
         village_size_upper_limit = int(request.form["village_size_upper_limit"])
         # max_density_lower_limit = int(request.form["max_density_lower_limit"])
@@ -40,7 +40,7 @@ def post():
             point_pop_lower_limit,
             # point_pop_upper_limit,
             village_pop_lower_limit,
-            village_pop_upper_limit,
+            # village_pop_upper_limit,
             # village_size_lower_limit,
             village_size_upper_limit,
             # max_density_lower_limit,

@@ -20,7 +20,8 @@ class PointDAO(object):
             self.pop_table,
             " (id integer PRIMARY KEY, key text, neighbors text, ",
             "pref text, city text, district text, population integer, ",
-            "latitude real, longitude real, coast boolean, coast_distance real, relation_point_default real);"
+            "latitude double precision, longitude double precision, ",
+            "coast boolean, coast_distance double precision, relation_point_default double precision);"
         ])
         cur.execute(query)
         self.close_connect(conn)

@@ -214,7 +214,7 @@ class Village(object):
             self.coast_distance_round = 0
         else:
             self.coast_distance = self.center_point.coast_distance
-            self.coast_distance_round = round(self.coast_distance, 4)
+            self.coast_distance_round = round(self.coast_distance, 2)
 
     def __repr__(self):
         return str("relation_point = " + str(self.relation_point) +
