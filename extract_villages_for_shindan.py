@@ -8,7 +8,7 @@ for region in RegionSetting.get_region_list():
         region,
         1,
         1,
-        299,
+        # 299,
         6,
         0
     )
@@ -16,17 +16,26 @@ for region in RegionSetting.get_region_list():
         region,
         100,
         300,
-        10000,
+        # 10000,
         6,
         0
     )
     for s in [small_village_setting, big_village_setting]:
         s.region = region
         result = calc_isolation.main(s)
-        villages = result.sorted_villages
+        villages_temp = result.sorted_villages
+        villages = []
+        if s.village_pop_lower_limit == 1:
+            # 300人以下の集落のみ
+            for v in villages_temp:
+                if v.population < 300:
+                    villages.append(v)
+        else:
+            villages = villages_temp
+
         extracted_villages.extend(villages[:20])
 
-with open("./output/uranai.txt", "w") as f:
+with open("./output/shindan.txt", "w") as f:
     for v in extracted_villages:
         row = "".join([
             v.pref,
