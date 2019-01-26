@@ -107,3 +107,6 @@ venv.bak/
 output/
 
 .idea/
+
+input/japan_mesh.txt
+input/japan_region.txt
