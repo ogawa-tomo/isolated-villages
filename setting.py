@@ -15,7 +15,7 @@ class Setting(object):
             village_size_upper_limit,
             # max_density_lower_limit,
             # distance_threshold,
-            coast_distance_threshold,
+            # coast_distance_threshold,
             # point_output_num
     ):
         self.region = region
@@ -29,7 +29,7 @@ class Setting(object):
         self.village_size_upper_limit = village_size_upper_limit
         # self.max_density_lower_limit = max_density_lower_limit
         # self.distance_threshold = distance_threshold
-        self.coast_distance_threshold = coast_distance_threshold
+        # self.coast_distance_threshold = coast_distance_threshold
         # self.point_output_num = point_output_num
 
         self.region_kanji = RegionSetting.get_region_kanji(region)
@@ -46,7 +46,7 @@ class Setting(object):
             "village_size_upper_limit": village_size_upper_limit,
             # "max_density_lower_limit": max_density_lower_limit,
             # "distance_threshold": distance_threshold,
-            "coast_distance_threshold": coast_distance_threshold,
+            # "coast_distance_threshold": coast_distance_threshold,
             # "point_output_num": point_output_num
         }
 
@@ -105,7 +105,8 @@ class RegionSetting(object):
         "kinki": "近畿",
         "chugoku": "中国",
         "shikoku": "四国",
-        "kyushu": "九州"
+        "kyushu": "九州",
+        "zenkoku": "全国"
     }
 
     address_calc_segment_lon_thresholds = [
@@ -133,7 +134,17 @@ class RegionSetting(object):
 
     @classmethod
     def get_region_prefs(cls, region):
-        return cls.region_prefs[region]
+        if region == "zenkoku":
+            return cls.get_all_prefs()
+        else:
+            return cls.region_prefs[region]
+
+    @classmethod
+    def get_all_prefs(cls):
+        all_prefs = []
+        for region in cls.region_prefs.keys():
+            all_prefs.extend(cls.region_prefs[region])
+        return all_prefs
 
     @classmethod
     def get_calc_segment(cls, region):

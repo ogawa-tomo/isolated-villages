@@ -9,6 +9,7 @@ class Point(object):
         self.pref = ""
         self.city = ""
         self.district = ""
+        self.len_district = 0
 
     def get_distance(self, p):
         """
@@ -29,6 +30,9 @@ class RegionPoint(Point):
 
     def get_district(self):
         return self.district
+
+    def set_len_district(self):
+        self.len_district = len(self.district)
 
 
 class MeshPoint(Point):

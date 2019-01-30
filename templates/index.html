@@ -22,6 +22,7 @@
                 {% else %}
                     <select name="region" id="region">
                         <option value="" selected disabled hidden>地域を選択</option>
+                        <option value="zenkoku">全国</option>
                         <option value="hokkaido">北海道</option>
                         <option value="tohoku">東北</option>
                         <option value="kanto">関東</option>
@@ -115,16 +116,16 @@
                 <!--{% endif %}-->
             <!--</td>-->
         <!--</tr>-->
-        <tr>
-            <td>海岸距離下限(km)</td>
-            <td>
-                {% if setting %}
-                    {{ setting.coast_distance_threshold }}
-                {% else %}
-                    <input type="text" name="coast_distance_threshold" id="coast_distance_threshold" size="3" value="0">
-                {% endif %}
-            </td>
-        </tr>
+        <!--<tr>-->
+            <!--<td>海岸距離下限(km)</td>-->
+            <!--<td>-->
+                <!--{% if setting %}-->
+                    <!--{{ setting.coast_distance_threshold }}-->
+                <!--{% else %}-->
+                    <!--<input type="text" name="coast_distance_threshold" id="coast_distance_threshold" size="3" value="0">-->
+                <!--{% endif %}-->
+            <!--</td>-->
+        <!--</tr>-->
         <!--<tr>-->
             <!--<td>人口パラメタ</td>-->
             <!--<td>-->
@@ -208,7 +209,7 @@
     <ul>
         <li>集落のメッシュの合計人口が「集落人口下限」以上のもの</li>
         <li>集落のメッシュ数が「集落メッシュ数上限」以下のもの</li>
-        <li>集落の中心点から最寄りの海岸線までの距離が「海岸距離下限」以上のもの</li>
+        <!--<li>集落の中心点から最寄りの海岸線までの距離が「海岸距離下限」以上のもの</li>-->
     </ul>
 
     たとえばパラメタを以下のように設定し、下図のような地域があったとする。
@@ -224,7 +225,7 @@
     メッシュ人口下限の100人を超えるメッシュは赤色で示した3つである。これらは隣接しているため、この3メッシュが1つの集落候補として抽出される。<br>
     集落人口はこの3メッシュの合計で540人となり、集落人口下限とメッシュ数上限の制約を満たすため、これは集落として抽出される。<br>
     <font size="-1">
-        ※実際にはさらに海岸からの距離条件を検討するがここでは省略<br>
+        <!--※実際にはさらに海岸からの距離条件を検討するがここでは省略<br>-->
         ※縦横だけでなく斜めに接している場合も隣接しているとみなす<br>
     </font>
     <br>

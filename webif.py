@@ -30,7 +30,7 @@ def post():
         village_size_upper_limit = int(request.form["village_size_upper_limit"])
         # max_density_lower_limit = int(request.form["max_density_lower_limit"])
         # distance_threshold = float(request.form["distance_threshold"])
-        coast_distance_threshold = float(request.form["coast_distance_threshold"])
+        # coast_distance_threshold = float(request.form["coast_distance_threshold"])
         # point_output_num = int(request.form["point_output_num"])
 
         setting = Setting(
@@ -45,7 +45,7 @@ def post():
             village_size_upper_limit,
             # max_density_lower_limit,
             # distance_threshold,
-            coast_distance_threshold,
+            # coast_distance_threshold,
             # point_output_num
         )
 

@@ -204,7 +204,7 @@ class PointDAO(object):
         all_pop_points = []
         calc_segment_pop_points = []
         village_points = []
-        calc_segment_prefs = RegionSetting.get_calc_segment_prefs_by_region(region)
+        # calc_segment_prefs = RegionSetting.get_calc_segment_prefs_by_region(region)
         region_prefs = RegionSetting.get_region_prefs(region)
 
         # データごとのインデックスを定義
@@ -273,14 +273,14 @@ class PointDAO(object):
 
                 # 条件に応じてリストに登録
                 all_pop_points.append(p)
-                if p.pref in calc_segment_prefs:
-                    calc_segment_pop_points.append(p)
+                # if p.pref in calc_segment_prefs:
+                #     calc_segment_pop_points.append(p)
                 if p.pref in region_prefs and p.population >= point_pop_lower_limit:
                     village_points.append(p)
 
         read_points = {
             "all": all_pop_points,
-            "calc_segment": calc_segment_pop_points,
+            # "calc_segment": calc_segment_pop_points,
             "village": village_points
         }
 

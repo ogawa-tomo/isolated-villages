@@ -24,7 +24,7 @@ def main(s):
         s.point_pop_lower_limit,
         s.village_size_upper_limit,
         s.village_pop_lower_limit,
-        s.coast_distance_threshold
+        # s.coast_distance_threshold
     )
 
     # 集落の孤立度を計算
@@ -49,7 +49,8 @@ def extract_villages(
         point_pop_lower_limit,
         village_size_upper_limit,
         village_pop_lower_limit,
-        coast_distance_threshold):
+        # coast_distance_threshold
+):
     """
     ポイント集合から集落を抽出して返すメソッド
     :param village_points:
@@ -78,8 +79,8 @@ def extract_villages(
         v = Village(village_points)
 
         # 人口などの条件を満たしていればリストに登録
-        if village_pop_lower_limit <= v.population and \
-                v.coast_distance >= coast_distance_threshold:
+        if village_pop_lower_limit <= v.population:  # and \
+                # v.coast_distance >= coast_distance_threshold:
             villages.append(v)
     return villages
 
@@ -107,7 +108,7 @@ class MeshPointManager(object):
     def __init__(self):
 
         self.all_pop_points = []
-        self.calc_segment_pop_points = []
+        # self.calc_segment_pop_points = []
         self.village_points = []
 
     def read_points(self, point_pop_lower_limit, region):
@@ -125,7 +126,7 @@ class MeshPointManager(object):
         read_points = dao.read_pop_points_from_csv(point_pop_lower_limit, region)
 
         self.all_pop_points = read_points["all"]
-        self.calc_segment_pop_points = read_points["calc_segment"]
+        # self.calc_segment_pop_points = read_points["calc_segment"]
         self.village_points = read_points["village"]
 
     def register_neighbors(self):
@@ -163,6 +164,7 @@ class Village(object):
         self.pref = self.center_point.pref
         self.city = self.center_point.city
         self.district = self.center_point.district
+        self.len_district = len(self.district)
 
         self.coast = self.get_is_coast()
         self.coast_distance = 0
