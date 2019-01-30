@@ -19,6 +19,9 @@ class Point(object):
         """
         return get_distance(self.longitude, self.latitude, p.longitude, p.latitude)
 
+    def __repr__(self):
+        return self.key_code
+
 
 class RegionPoint(Point):
 

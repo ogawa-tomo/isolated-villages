@@ -37,7 +37,7 @@ def main(s):
 
     # 結果書き出し
     t = str(time.time()).replace(".", "")
-    output_dir = "./static/" #+ t + "/"
+    output_dir = "./static/" + t + "/"
     os.makedirs(output_dir, exist_ok=True)
     output_file = output_dir + s.region
     output_result = OutputResult(output_file, sorted_villages, s)
@@ -257,13 +257,17 @@ class OutputResult(object):
         self.sorted_villages = sorted_villages
         self.setting = setting
         self.region = setting.region
+        self.csv_file = self.file + ".csv"
+        self.map_file = self.file + "_map.html"
+        self.csv_url = self.csv_file.strip(".")
+        self.map_url = self.map_file.strip(".")
 
     def output_csv(self):
         """
         結果をcsvファイルに書き出す
         :return:
         """
-        with open(self.file + ".csv", "w") as f:
+        with open(self.csv_file, "w") as f:
             writer = csv.writer(f, lineterminator="\n")
             for k in self.setting.setting.keys():
                 writer.writerow([k, self.setting.setting[k]])
@@ -272,20 +276,22 @@ class OutputResult(object):
                              "都道府県",
                              "市町村",
                              "地区",
-                             "人口",
                              "緯度経度",
-                             "連帯度",
+                             "人口",
+                             "都会度",
                              "海岸距離",
-                             "points"])
+                             "メッシュ数",
+                             "メッシュKEY_CODE"])
             for i, v in enumerate(self.sorted_villages):
                 row = [i + 1,
                        v.pref,
                        v.city,
                        v.district,
-                       v.population,
                        str(v.latitude) + ", " + str(v.longitude),
+                       v.population,
                        v.relation_point,
                        v.coast_distance,
+                       str(len(v.points))
                        ]
                 row.extend(v.points)
                 writer.writerow(row)
@@ -293,7 +299,6 @@ class OutputResult(object):
     def output_map(self):
         """
         地域の地図を出力するクラス
-        :param file:
         :return:
         """
         lat_lon = self.get_lat_lon(self.sorted_villages)
@@ -304,7 +309,7 @@ class OutputResult(object):
                 break
             marker = self.get_marker(self.sorted_villages[i], i + 1)
             marker.add_to(map_)
-        file = "".join([self.file, "_map.html"])
+        file = self.map_file
         map_.save(file)
 
     @staticmethod

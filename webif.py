@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from setting import Setting
 import calc_isolation
 import time
+from setting import URL
 
 
 app = Flask(__name__)
@@ -54,7 +55,9 @@ def post():
         elapsed_time = time.time() - start
         print(str(elapsed_time) + "[sec]")
 
-        return render_template("index.html", result=result, setting=setting)
+        url = URL
+
+        return render_template("index.html", result=result, setting=setting, url=url)
     else:
         return redirect(url_for('index'))
 

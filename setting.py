@@ -1,4 +1,7 @@
 
+# URL = "localhost:5000"
+URL = "https://search-isolated-villages.herokuapp.com"
+
 
 class Setting(object):
 
