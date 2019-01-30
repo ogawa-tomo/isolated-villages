@@ -5,6 +5,7 @@ from point_dao import PointDAO
 from point import *
 from calc_relation_point import CalcRelationPoint
 import os
+import time
 
 
 def main(s):
@@ -35,8 +36,10 @@ def main(s):
     sorted_villages = sorted(villages)
 
     # 結果書き出し
-    output_file = "./output/" + s.region
-    os.makedirs(output_file, exist_ok=True)
+    t = str(time.time()).replace(".", "")
+    output_dir = "./static/" #+ t + "/"
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = output_dir + s.region
     output_result = OutputResult(output_file, sorted_villages, s)
     output_result.output_csv()
     output_result.output_map()
