@@ -42,8 +42,9 @@ def main(s):
     csv_files = glob.glob("./static/*.csv")
     html_files = glob.glob("./static/*.html")
     files = csv_files.extend(html_files)
-    for file in files:
-        os.remove(file)
+    if files is not None:
+        for file in files:
+            os.remove(file)
     dirs = glob.glob("./static/*")
     remove_dir_n = len(dirs) - 5
     remove_dirs = dirs[:remove_dir_n]
