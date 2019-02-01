@@ -6,6 +6,8 @@ from point import *
 from calc_relation_point import CalcRelationPoint
 import os
 import time
+import shutil
+import glob
 
 
 def main(s):
@@ -37,6 +39,16 @@ def main(s):
 
     # 結果書き出し
     t = str(time.time()).replace(".", "")
+    csv_files = glob.glob("./static/*.csv")
+    html_files = glob.glob("./static/*.html")
+    files = csv_files.extend(html_files)
+    for file in files:
+        os.remove(file)
+    dirs = glob.glob("./static/*")
+    remove_dir_n = len(dirs) - 5
+    remove_dirs = dirs[:remove_dir_n]
+    for directory in remove_dirs:
+        shutil.rmtree(directory)
     output_dir = "./static/" + t + "/"
     os.makedirs(output_dir, exist_ok=True)
     output_file = output_dir + s.region
