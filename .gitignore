@@ -110,3 +110,4 @@ output/
 
 input/japan_mesh.txt
 input/japan_region.txt
+static/*

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h1>秘境{{ faculty_ja }}ランキング</h1>
+<br>
+秘境{{ faculty_ja }}を探索し、秘境度が高い順にランキングで出力します。<br>
+秘境集落探索プログラム→<a href="https://search-isolated-villages.herokuapp.com/" target="_blank">https://search-isolated-villages.herokuapp.com/</a><br>
+{% if faculty == "post_office" %}
+    秘境小学校ランキング→<a href="https://search-isolated-villages.herokuapp.com/elementary_school" target="_blank">https://search-isolated-villages.herokuapp.com/elementary_school</a>
+{% elif faculty == "elementary_school" %}
+    秘境郵便局ランキング→<a href="https://search-isolated-villages.herokuapp.com/post_office" target="_blank">https://search-isolated-villages.herokuapp.com/post_office</a>
+{% endif %}
+<br><br>
+
+{% if not result %}
+<form action="/{{ faculty }}/result" method="post">
+    <table class="table table-responsive">
+        <tr>
+            <th>探索条件</th>
+            <th>設定値</th>
+        </tr>
+        <tr>
+            <td>地域</td>
+            <td>
+                <select name="region" id="region">
+                    <option value="" selected disabled hidden>地域を選択</option>
+                    <option value="zenkoku">全国</option>
+                    <option value="hokkaido">北海道</option>
+                    <option value="tohoku">東北</option>
+                    <option value="kanto">関東</option>
+                    <option value="hokuriku">北陸</option>
+                    <option value="chubu">中部</option>
+                    <option value="kinki">近畿</option>
+                    <option value="chugoku">中国</option>
+                    <option value="shikoku">四国</option>
+                    <option value="kyushu">九州</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-default">探索</button>
+</form>
+{% endif %}
+
+{% if result %}
+<br>
+<h2>探索結果</h2>
+    <br>
+    <table class="table table-responsive">
+        <tr>
+            <th>順位</th>
+            <th>{{ faculty_ja }}名</th>
+            <th>都道府県</th>
+            <th>市町村</th>
+            <th>地区</th>
+            <th>Google Map</th>
+        </tr>
+        {% for f in result %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ f.name }}</td>
+                <td>{{ f.pref }}</td>
+                <td>{{ f.city }}</td>
+                <td>{{ f.district }}</td>
+                <td>
+                    <a href="{{ f.get_google_map_url() }}" target="_blank">{{ f.latitude }},{{ f.longitude }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock %}

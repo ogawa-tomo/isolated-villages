@@ -124,7 +124,7 @@ class MeshPointManager(object):
     def __init__(self):
 
         self.all_pop_points = []
-        # self.calc_segment_pop_points = []
+        self.calc_segment_pop_points = []
         self.village_points = []
 
     def read_points(self, point_pop_lower_limit, region):
@@ -142,7 +142,7 @@ class MeshPointManager(object):
         read_points = dao.read_pop_points_from_csv(point_pop_lower_limit, region)
 
         self.all_pop_points = read_points["all"]
-        # self.calc_segment_pop_points = read_points["calc_segment"]
+        self.calc_segment_pop_points = read_points["calc_segment"]
         self.village_points = read_points["village"]
 
     def register_neighbors(self):

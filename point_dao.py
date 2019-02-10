@@ -280,7 +280,7 @@ class PointDAO(object):
 
         read_points = {
             "all": all_pop_points,
-            # "calc_segment": calc_segment_pop_points,
+            "calc_segment": calc_segment_pop_points,
             "village": village_points
         }
 

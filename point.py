@@ -19,8 +19,55 @@ class Point(object):
         """
         return get_distance(self.longitude, self.latitude, p.longitude, p.latitude)
 
+    def get_google_map_url(self):
+        lat = str(self.latitude)
+        lon = str(self.longitude)
+        url = "http://maps.google.com/maps?q=" + lat + "," + lon
+        return url
+
     def __repr__(self):
         return self.key_code
+
+
+class FacultyPoint(Point):
+
+    def __init__(self):
+        super().__init__()
+        self.name = ""
+        self.in_pop_point = None
+        self.is_in_pop_point = True
+        self.relation_point_default = 0
+
+    def get_name(self):
+        return self.name
+
+    def get_pref(self):
+        return self.pref
+
+    def get_city(self):
+        return self.city
+
+    def get_district(self):
+        return self.district
+
+    def set_len_district(self):
+        self.len_district = len(self.district)
+
+    def get_may_be_in_mesh(self, mesh_point):
+
+        # 緯度経度の差だけで判断
+        dx = abs(self.longitude - mesh_point.longitude)
+        dy = abs(self.latitude - mesh_point.latitude)
+        if dx < 0.009 and dy < 0.006:
+            return True
+        else:
+            return False
+
+    def set_in_pop_point(self, pop_point):
+        self.in_pop_point = pop_point
+
+    def __lt__(self, other):
+        return self.relation_point_default < other.relation_point_default
 
 
 class RegionPoint(Point):

@@ -3,6 +3,7 @@ from setting import Setting
 import calc_isolation
 import time
 from setting import URL
+import search_isolated_faculty
 
 
 app = Flask(__name__)
@@ -60,6 +61,32 @@ def post():
         return render_template("index.html", result=result, setting=setting, url=url)
     else:
         return redirect(url_for('index'))
+
+
+@app.route("/post_office")
+def index_post_office():
+    return render_template("faculty.html", faculty="post_office", faculty_ja="郵便局")
+
+
+@app.route("/post_office/result", methods=["GET", "POST"])
+def result_post_office():
+    faculty = "post_office"
+    region = request.form["region"]
+    result = search_isolated_faculty.main(region, faculty)
+    return render_template("faculty.html", faculty=faculty, faculty_ja="郵便局", result=result)
+
+
+@app.route("/elementary_school")
+def index_elementary_school():
+    return render_template("faculty.html", faculty="elementary_school", faculty_ja="小学校")
+
+
+@app.route("/elementary_school/result", methods=["GET", "POST"])
+def result_elementary_school():
+    faculty = "elementary_school"
+    region = request.form["region"]
+    result = search_isolated_faculty.main(region, faculty)
+    return render_template("faculty.html", faculty=faculty, faculty_ja="小学校", result=result)
 
 
 if __name__ == "__main__":
