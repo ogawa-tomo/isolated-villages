@@ -42,7 +42,7 @@ def read_post_office_point_csv(input_file, region):
     lon_idx = -1
     relation_point_idx = -1
 
-    with open(input_file, "r") as f:
+    with open(input_file, "r", encoding="utf8") as f:
         reader = csv.reader(f)
         for i, line in enumerate(reader):
 

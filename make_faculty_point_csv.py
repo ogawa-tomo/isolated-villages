@@ -150,7 +150,7 @@ class FacultyPointDataReader(PointDataReader):
                         += CalcRelationPoint.get_relation_point_default(pop_point.population, dist)
 
     def register_points_to_csv(self):
-        with open(self.output_file, "w") as f:
+        with open(self.output_file, "w", encoding="utf8") as f:
             writer = csv.writer(f, lineterminator="\n")
             header = [
                 "name",
