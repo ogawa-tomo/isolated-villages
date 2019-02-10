@@ -21,7 +21,7 @@ def main(region, faculty):
 
     sorted_post_points = sorted(region_post_points)
 
-    output_csv(sorted_post_points, region, output_file_without_region)
+    # output_csv(sorted_post_points, region, output_file_without_region)
 
     return sorted_post_points
 
