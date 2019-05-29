@@ -38,24 +38,31 @@ def main(s):
     sorted_villages = sorted(villages)
 
     # 結果書き出し
-    t = str(time.time()).replace(".", "")
-    csv_files = glob.glob("./static/*.csv")
-    html_files = glob.glob("./static/*.html")
-    files = csv_files.extend(html_files)
-    if files is not None:
-        for file in files:
-            os.remove(file)
-    dirs = glob.glob("./static/*")
-    remove_dir_n = len(dirs) - 5
-    remove_dirs = dirs[:remove_dir_n]
-    for directory in remove_dirs:
-        shutil.rmtree(directory)
-    output_dir = "./static/" + t + "/"
-    os.makedirs(output_dir, exist_ok=True)
-    output_file = output_dir + s.region
-    output_result = OutputResult(output_file, sorted_villages, s)
-    output_result.output_csv()
-    output_result.output_map()
+    output_result = OutputResult(sorted_villages, s)
+
+    # ------csvファイルとmapの出力を廃止----------
+    # t = str(time.time()).replace(".", "")
+    #
+    # # staticディレクトリのcsvとhtmlファイルを削除
+    # csv_files = glob.glob("./static/*.csv")
+    # html_files = glob.glob("./static/*.html")
+    # files = csv_files.extend(html_files)
+    # if files is not None:
+    #     for file in files:
+    #         os.remove(file)
+    #
+    # dirs = glob.glob("./static/*")
+    # remove_dir_n = len(dirs) - 5
+    # remove_dirs = dirs[:remove_dir_n]
+    # for directory in remove_dirs:
+    #     shutil.rmtree(directory)
+    # output_dir = "./static/" + t + "/"
+    # os.makedirs(output_dir, exist_ok=True)
+    # output_file = output_dir + s.region
+    # output_result = OutputResult(output_file, sorted_villages, s)
+    # # output_result.output_csv()
+    # # output_result.output_map()
+    # ------csvファイルとmapの出力を廃止----------
 
     return output_result
 
@@ -265,65 +272,65 @@ class OutputResult(object):
     """
     結果出力を担当するクラス
     """
-    def __init__(self, file, sorted_villages, setting):
-        self.file = file
+    def __init__(self, sorted_villages, setting):
+        # self.file = file
         self.sorted_villages = sorted_villages
         self.setting = setting
         self.region = setting.region
-        self.csv_file = self.file + ".csv"
-        self.map_file = self.file + "_map.html"
-        self.csv_url = self.csv_file.strip(".")
-        self.map_url = self.map_file.strip(".")
+        # self.csv_file = self.file + ".csv"
+        # self.map_file = self.file + "_map.html"
+        # self.csv_url = self.csv_file.strip(".")
+        # self.map_url = self.map_file.strip(".")
 
-    def output_csv(self):
-        """
-        結果をcsvファイルに書き出す
-        :return:
-        """
-        with open(self.csv_file, "w") as f:
-            writer = csv.writer(f, lineterminator="\n")
-            for k in self.setting.setting.keys():
-                writer.writerow([k, self.setting.setting[k]])
-
-            writer.writerow(["順位",
-                             "都道府県",
-                             "市町村",
-                             "地区",
-                             "緯度経度",
-                             "人口",
-                             "都会度",
-                             "海岸距離",
-                             "メッシュ数",
-                             "メッシュKEY_CODE"])
-            for i, v in enumerate(self.sorted_villages):
-                row = [i + 1,
-                       v.pref,
-                       v.city,
-                       v.district,
-                       str(v.latitude) + ", " + str(v.longitude),
-                       v.population,
-                       v.relation_point,
-                       v.coast_distance,
-                       str(len(v.points))
-                       ]
-                row.extend(v.points)
-                writer.writerow(row)
-
-    def output_map(self):
-        """
-        地域の地図を出力するクラス
-        :return:
-        """
-        lat_lon = self.get_lat_lon(self.sorted_villages)
-        map_ = folium.Map(location=lat_lon, zoom_start=8)
-        n = len(self.sorted_villages)
-        for i in range(10):
-            if i >= n:
-                break
-            marker = self.get_marker(self.sorted_villages[i], i + 1)
-            marker.add_to(map_)
-        file = self.map_file
-        map_.save(file)
+    # def output_csv(self):
+    #     """
+    #     結果をcsvファイルに書き出す
+    #     :return:
+    #     """
+    #     with open(self.csv_file, "w") as f:
+    #         writer = csv.writer(f, lineterminator="\n")
+    #         for k in self.setting.setting.keys():
+    #             writer.writerow([k, self.setting.setting[k]])
+    #
+    #         writer.writerow(["順位",
+    #                          "都道府県",
+    #                          "市町村",
+    #                          "地区",
+    #                          "緯度経度",
+    #                          "人口",
+    #                          "都会度",
+    #                          "海岸距離",
+    #                          "メッシュ数",
+    #                          "メッシュKEY_CODE"])
+    #         for i, v in enumerate(self.sorted_villages):
+    #             row = [i + 1,
+    #                    v.pref,
+    #                    v.city,
+    #                    v.district,
+    #                    str(v.latitude) + ", " + str(v.longitude),
+    #                    v.population,
+    #                    v.relation_point,
+    #                    v.coast_distance,
+    #                    str(len(v.points))
+    #                    ]
+    #             row.extend(v.points)
+    #             writer.writerow(row)
+    #
+    # def output_map(self):
+    #     """
+    #     地域の地図を出力するクラス
+    #     :return:
+    #     """
+    #     lat_lon = self.get_lat_lon(self.sorted_villages)
+    #     map_ = folium.Map(location=lat_lon, zoom_start=8)
+    #     n = len(self.sorted_villages)
+    #     for i in range(10):
+    #         if i >= n:
+    #             break
+    #         marker = self.get_marker(self.sorted_villages[i], i + 1)
+    #         marker.add_to(map_)
+    #     file = self.map_file
+    #     map_.save(file)
 
     @staticmethod
     def get_marker(v, rank):
