@@ -1,2 +1,2 @@
 # isolated-villages
-秘境集落探索プログラム
+秘境集落探索ツール
