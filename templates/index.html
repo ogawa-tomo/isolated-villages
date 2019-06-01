@@ -6,8 +6,8 @@
 <br>
 秘境集落を探索し、秘境度が高い順にランキングで出力します。<br>
 <!-- あなたにおすすめの秘境集落→<a href="https://shindanmaker.com/860129" target="_blank">https://shindanmaker.com/860129</a><br> -->
-秘境小学校ランキング→<a href="https://search-isolated-villages.herokuapp.com/elementary_school" target="_blank">https://search-isolated-villages.herokuapp.com/elementary_school</a><br>
-秘境郵便局ランキング→<a href="https://search-isolated-villages.herokuapp.com/post_office" target="_blank">https://search-isolated-villages.herokuapp.com/post_office</a>
+秘境小学校探索ツール→<a href="https://search-isolated-villages.herokuapp.com/elementary_school" target="_blank">https://search-isolated-villages.herokuapp.com/elementary_school</a><br>
+秘境郵便局探索ツール→<a href="https://search-isolated-villages.herokuapp.com/post_office" target="_blank">https://search-isolated-villages.herokuapp.com/post_office</a>
 <br><br>
 
 <form action="/result" method="post">
@@ -181,9 +181,11 @@
             <th>地区</th>
             <th>Google Map</th>
             <th>人口</th>
-            <th>都会度</th>
-            <th>海岸距離</th>
             <th>メッシュ数</th>
+            <th>海岸距離(km)</th>
+            <th>都会度</th>
+
+
         </tr>
         {% for v in result.sorted_villages %}
             <tr>
@@ -195,9 +197,10 @@
                     <a href="{{ v.google_map_url }}" target="_blank">{{ v.latitude_round }},{{ v.longitude_round }}</a>
                 </td>
                 <td>{{ v.population }}</td>
-                <td>{{ v.relation_point_round }}</td>
-                <td>{{ v.coast_distance_round }}</td>
                 <td>{{ v.size  }}</td>
+                <td>{{ v.coast_distance_round }}</td>
+                <td>{{ v.relation_point_round }}</td>
+
             </tr>
         {% endfor %}
     </table>
