@@ -22,7 +22,7 @@ class Point(object):
     def get_google_map_url(self):
         lat = str(self.latitude)
         lon = str(self.longitude)
-        url = "http://maps.google.com/maps?q=" + lat + "," + lon
+        url = "http://maps.google.com/maps?q=" + lat + "," + lon + "&t=k"
         return url
 
     def __repr__(self):
