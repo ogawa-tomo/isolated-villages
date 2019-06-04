@@ -264,7 +264,7 @@ class Village(object):
     def get_google_map_url(self):
         lat = str(self.latitude_round)
         lon = str(self.longitude_round)
-        url = "http://maps.google.com/maps?q=" + lat + "," + lon
+        url = "http://maps.google.com/maps?q=" + lat + "," + lon + "&t=k"
         return url
 
 
