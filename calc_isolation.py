@@ -91,15 +91,21 @@ def extract_villages(
             continue
 
         # p周辺の人口集中ポイントを登録
-        try:
-            village_points = p.get_my_village_points([], village_size_upper_limit, point_pop_lower_limit)
-        except TooBigVillageException:
-            # サイズが閾値を超えた場合には例外が返ってくる
+        # try:
+        #     village_points = p.get_my_village_points([], village_size_upper_limit, point_pop_lower_limit)
+        # except TooBigVillageException:
+        #     # サイズが閾値を超えた場合には例外が返ってくる
+        #     continue
+        village_points = p.get_my_village_points([], village_size_upper_limit, point_pop_lower_limit)
+
+        # 集落であったにせよなかったにせよ、調べた点は登録する
+        registered.extend(village_points["points"])
+
+        if not village_points["is_village"]:
+            # サイズが閾値を超えた場合にはこの値がFalse
             continue
 
-        registered.extend(village_points)
-
-        v = Village(village_points)
+        v = Village(village_points["points"])
 
         # 人口などの条件を満たしていればリストに登録
         if village_pop_lower_limit <= v.population:  # and \

@@ -138,22 +138,28 @@ class MeshPoint(Point):
         ignore = ignore_org.copy()
         ignore.append(self)
         if len(ignore) > village_size_upper_limit:
-            raise TooBigVillageException
+            # raise TooBigVillageException(ignore)
+            return {"is_village": False, "points": ignore}  # 集落ではないことを示し、そのポイントの集合を返す
         my_village_points = [self]
         for p in self.neighbors:
             if p in ignore or p.population < point_pop_lower_limit:
                 continue
             my_village_points.append(p)
-            try:
-                points = p.get_my_village_points(ignore, village_size_upper_limit, point_pop_lower_limit)  # 再帰的に呼ぶ
-            except TooBigVillageException:
-                # サイズの閾値を超えると例外が返ってくる
-                raise TooBigVillageException
-            ignore.extend(points)
-            my_village_points.extend(points)
+            # try:
+            #     points = p.get_my_village_points(ignore, village_size_upper_limit, point_pop_lower_limit)  # 再帰的に呼ぶ
+            # except TooBigVillageException:
+            #     # サイズの閾値を超えると例外が返ってくる
+            #     raise TooBigVillageException
+            points = p.get_my_village_points(ignore, village_size_upper_limit, point_pop_lower_limit)  # 再帰的に呼ぶ
+
+            if not points["is_village"]:
+                return {"is_village": False, "points": ignore}
+
+            ignore.extend(points["points"])
+            my_village_points.extend(points["points"])
             my_village_points = list(set(my_village_points))
 
-        return my_village_points
+        return {"is_village": True, "points": my_village_points}
 
 
 def get_distance(x1, y1, x2, y2):
