@@ -153,7 +153,7 @@ class MeshPoint(Point):
             points = p.get_my_village_points(ignore, village_size_upper_limit, point_pop_lower_limit)  # 再帰的に呼ぶ
 
             if not points["is_village"]:
-                return {"is_village": False, "points": ignore}
+                return points
 
             ignore.extend(points["points"])
             my_village_points.extend(points["points"])

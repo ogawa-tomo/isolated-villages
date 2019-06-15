@@ -83,7 +83,7 @@ def extract_villages(
     :param coast_distance_threshold:
     :return:
     """
-    registered = []  # 既に集落に登録された点
+    registered = set()  # 既に集落に登録された点
     villages = []
     print("集落を抽出中")
     for p in tqdm(village_points):
@@ -96,16 +96,15 @@ def extract_villages(
         # except TooBigVillageException:
         #     # サイズが閾値を超えた場合には例外が返ってくる
         #     continue
-        village_points = p.get_my_village_points([], village_size_upper_limit, point_pop_lower_limit)
+        points = p.get_my_village_points([], village_size_upper_limit, point_pop_lower_limit)
 
-        # 集落であったにせよなかったにせよ、調べた点は登録する
-        registered.extend(village_points["points"])
-
-        if not village_points["is_village"]:
+        if not points["is_village"]:
             # サイズが閾値を超えた場合にはこの値がFalse
+            # ここで抽出されなかった点をregisteredに登録すると遅くなる　←なぜ？
             continue
 
-        v = Village(village_points["points"])
+        registered = registered.union(points["points"])  # 既に集落に含まれた点を登録
+        v = Village(points["points"])
 
         # 人口などの条件を満たしていればリストに登録
         if village_pop_lower_limit <= v.population:  # and \
